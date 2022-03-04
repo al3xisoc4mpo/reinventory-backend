@@ -1,6 +1,7 @@
 // EXTERNAL PACKAGE IMPORTS
 
 const bcryptjs = require("bcryptjs");
+const async = require("hbs/lib/async");
 const jwt = require("jsonwebtoken");
 
 // INTERNAL IMPORTS
@@ -43,7 +44,7 @@ exports.create = async (req, res) => {
 
     // JSON WEB TOKEN CREATION
     jwt.sign(
-      payload, // DATOS QUE ACOMPAÑAN
+      payload, // COMPLIMENTARY DATA
       process.env.SECRET,
       {
         expiresIn: 3600000,
@@ -69,6 +70,7 @@ exports.create = async (req, res) => {
 // LOGIN AUTHENTICATION FUNCTION
 
 exports.login = async (req, res) => {
+  
   const { email, password } = req.body;
 
   try {
@@ -145,3 +147,18 @@ exports.verifyToken = async (req, res) => {
     });
   }
 };
+
+exports.getProfile = async (req,res) => {
+
+  try {
+    
+    res.json({})
+
+    const user = await User.find()
+
+  } catch (error) {
+
+    console.log(error)
+
+  }
+}
