@@ -1,9 +1,9 @@
 // ./config/db.js
 
-// 1. IMPORTACIONES
+// EXTERNAL PACKAGE IMPORTS
 const mongoose = require("mongoose");
 
-// 2. FUNCIÓN
+// CONNECT TO DATABASE FUNCTION DECLARATION
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
@@ -11,12 +11,12 @@ const connectDB = async () => {
       useUnifiedTopology: true,
     });
 
-    return console.log("Base de datos conectada.");
+    return console.log("Database connected");
   } catch (error) {
     console.log(error);
     return process.exit(1);
   }
 };
 
-// 3. EXPORTACIÓN
+// EXPORTS
 module.exports = connectDB;

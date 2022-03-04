@@ -12,5 +12,4 @@ router.post("/login", userController.login)
 
 router.get("/verifytoken", authorization, userController.verifyToken)
 
-
 module.exports = router
