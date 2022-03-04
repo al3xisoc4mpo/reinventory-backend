@@ -26,7 +26,7 @@ exports.create = async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
-      role,
+      role
     });
 
     console.log(newUser);

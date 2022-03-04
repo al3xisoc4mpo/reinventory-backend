@@ -3,13 +3,13 @@ const router = express.Router()
 
 const authorization = require("./../middlewares/authorization")
 
-const userController = require("./../controllers/usersController")
+const usersController = require("./../controllers/usersController")
 
 
-router.post("/create", userController.create)
+router.post("/create", usersController.create)
 
-router.post("/login", userController.login)
+router.post("/login", usersController.login)
 
-router.get("/verifytoken", authorization, userController.verifyToken)
+router.get("/verifytoken", authorization, usersController.verifyToken)
 
 module.exports = router
