@@ -15,7 +15,8 @@ app.use(express.json({ extended: true }));
 
 // 3. RUTEO
 app.use("/api/users", require("./routes/users"));
-// app.use("/api/pets", require("./routes/pets"));
+app.use("/api/locations", require("./routes/locations"));
+app.use("/api/items", require("./routes/items"));
 app.use("/", require("./routes/index"));
 
 // 4. SERVIDOR
