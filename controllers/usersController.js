@@ -1,33 +1,32 @@
 // EXTERNAL PACKAGE IMPORTS
-
 const bcryptjs = require("bcryptjs");
-const async = require("hbs/lib/async");
 const jwt = require("jsonwebtoken");
 
 // INTERNAL IMPORTS
-
+// --- MODELS ---
 const User = require("./../models/User");
 
 // USER GENERATING FUNCTION
-
 exports.create = async (req, res) => {
   // DESTRUCTURING OF REQ.BODY
-  const { name, lastName, email, password, role } = req.body;
+  const { firstName, lastName, picture, phoneNumber, email, password, role } =
+    req.body;
 
   try {
     // PASSWORD HASHING
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
-
-    console.log(hashedPassword);
+    // console.log(hashedPassword);
 
     // USER CREATION
     const newUser = await User.create({
-      name,
+      firstName,
       lastName,
+      picture,
+      phoneNumber,
       email,
       password: hashedPassword,
-      role
+      role,
     });
 
     console.log(newUser);
@@ -70,7 +69,6 @@ exports.create = async (req, res) => {
 // LOGIN AUTHENTICATION FUNCTION
 
 exports.login = async (req, res) => {
-  
   const { email, password } = req.body;
 
   try {
@@ -129,7 +127,6 @@ exports.login = async (req, res) => {
 // TOKEN VERIFYING FUNCTION
 
 exports.verifyToken = async (req, res) => {
-	
   console.log(req.user);
 
   try {
@@ -148,17 +145,12 @@ exports.verifyToken = async (req, res) => {
   }
 };
 
-exports.getProfile = async (req,res) => {
-
+exports.getProfile = async (req, res) => {
   try {
-    
-    res.json({})
+    res.json({});
 
-    const user = await User.find()
-
+    const user = await User.find();
   } catch (error) {
-
-    console.log(error)
-
+    console.log(error);
   }
-}
+};

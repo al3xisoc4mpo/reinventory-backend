@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 // DEFINING USER SCHEMA
 
 const userSchema = new mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
     required: [true, "Name is required"],
   },
@@ -21,11 +21,11 @@ const userSchema = new mongoose.Schema({
   },
   phoneNumber: {
     type: String,
-    minlength: 10
+    maxlength: 10
   },
   email: {
     type: String,
-    required: true,
+    rrequired: [true, "Email is required"],
     unique: true,
     trim: true,
   },
