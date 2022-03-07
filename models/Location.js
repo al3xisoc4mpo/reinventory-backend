@@ -15,6 +15,10 @@ const locationSchema = new Schema({
     type: String,
     required: [true, "Description is required"]
   },
+  image: {
+    type: String,
+    required: [true, "Image is required"]
+  },
   admin: {
     type: Schema.Types.ObjectId,
     ref: "User",

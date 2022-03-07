@@ -3,10 +3,10 @@ const Location = require("../models/Location");
 
 // CREATING LOCATIONS
 exports.createlocation = async (req, res) => {
-  const { name, description } = req.body;
+  const { name, description, image, admin } = req.body;
 
   try {
-    const createdLocation = await Location.create({ name, description });
+    const createdLocation = await Location.create({ name, description, image, admin });
 
     res.json({
       msg: "Location creation successful",

@@ -3,14 +3,14 @@ const Item = require("../models/Location");
 
 // CREATING LOCATIONS
 exports.createItem = async (req, res) => {
-  const { name, description } = req.body;
+  const { name, description, quantity, locations } = req.body;
 
   try {
-    const createdLocation = await Item.create({ name, description });
+    const createdItem = await Item.create({ name, description, quantity, locations });
 
     res.json({
-      msg: "Location creation successful",
-      data: createdLocation,
+      msg: "Item creation successful",
+      data: createdItem,
     });
   } catch (error) {
     console.log(error);
