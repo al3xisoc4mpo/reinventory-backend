@@ -31,6 +31,23 @@ exports.allLocations = async (req, res) => {
   }
 };
 
+// OBTAINING A SINGLE LOCATION
+exports.selectedLocation = async (req, res) => {
+
+const {id} = req.params
+
+  try {
+    const selectedLocation = await Location.findById(id);
+
+    res.json({
+      msg: "Location query successfully",
+      data: selectedLocation,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // UPDATE LOCATION DETAILS
 exports.updateLocation = async (req, res) => {
   const { id, name, description, admin, items } = req.body;

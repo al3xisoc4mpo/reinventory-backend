@@ -15,6 +15,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Last name is required"],
   },
+  picture: {
+    type: String,
+    required: [true, "Picture is required"],
+  },
+  phoneNumber: {
+    type: String,
+    minlength: 10
+  },
   email: {
     type: String,
     required: true,
