@@ -50,14 +50,16 @@ const {id} = req.params
 
 // UPDATE LOCATION DETAILS
 exports.updateLocation = async (req, res) => {
-  const { id, name, description, admin, items } = req.body;
+
+  const {id} = req.params
+  console.log(id)
+  const { name, description, image } = req.body;
 
   try {
     const updatedLocation = await Location.findByIdAndUpdate(id, {
       name,
       description,
-      admin,
-      items,
+      image
     },
     { new: true }
     );
@@ -73,8 +75,8 @@ exports.updateLocation = async (req, res) => {
 
 // DELETE LOCATION
 exports.deleteLocation = async (req, res) => {
-  const { id } = req.body;
-
+  const { id } = req.params;
+  console.log(id)
   try {
     const deletedLocation = await Location.findByIdAndDelete(id);
 

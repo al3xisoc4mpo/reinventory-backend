@@ -18,10 +18,10 @@ router.get("/all", locationsController.allLocations);
 router.get("/:id", locationsController.selectedLocation);
 
 // UPDATE ALL LOCATIONS
-router.post("/update", locationsController.updateLocation);
+router.post("/:id/update", locationsController.updateLocation);
 
 // DELETE LOCATION
-router.post("/delete", locationsController.deleteLocation);
+router.post("/:id/delete", locationsController.deleteLocation);
 
 // MODULE EXPORT
 module.exports = router;
