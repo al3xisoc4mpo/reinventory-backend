@@ -14,7 +14,7 @@ router.post("/create", locationsController.createlocation);
 // OBTAIN ALL LOCATIONS
 router.get("/all", locationsController.allLocations);
 
-// OBTAIN ALL LOCATIONS
+// OBTAIN A LOCATION
 router.get("/:id", locationsController.selectedLocation);
 
 // UPDATE ALL LOCATIONS

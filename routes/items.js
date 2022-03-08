@@ -4,21 +4,24 @@
 const express = require("express");
 const router = express.Router();
 
-const locationsController = require("../controllers/locationsController")
+const itemsController = require("../controllers/itemsController")
 
 // --- ROUTER ---
 
-// CREATE A LOCATION
-router.post("/create", locationsController.createlocation);
+// CREATE AN ITEM
+router.post("/create", itemsController.createItem);
 
-// OBTAIN ALL LOCATIONS
-router.post("/all", locationsController.allLocations);
+// OBTAIN ALL ITEMS
+router.post("/all", itemsController.allItems);
+
+// OBTAIN AN ITEM
+router.get("/:id", itemsController.selectedItem);
 
 // UPDATE ALL LOCATIONS
-router.post("/update", locationsController.updateLocation);
+router.post("/:id/update", itemsController.updateItem);
 
 // DELETE LOCATION
-router.post("/delete", locationsController.deleteLocation);
+router.post("/:id/delete", itemsController.deleteItem);
 
 // MODULE EXPORT
 module.exports = router;

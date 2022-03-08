@@ -2,11 +2,11 @@
 
 // EXTERNAL PACKAGE IMPORTS
 
-const mongoose = require("mongoose");
+const { Schema, model, SchemaType } = require("mongoose");
 
 // DEFINING USER SCHEMA
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   firstName: {
     type: String,
     required: [true, "Name is required"],
@@ -39,8 +39,14 @@ const userSchema = new mongoose.Schema({
     default: "Operator",
     required: true,
   },
+  locations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Location",
+    },
+  ],
 });
 
-const User = mongoose.model("User", userSchema);
+const User = model("User", userSchema);
 
 module.exports = User;

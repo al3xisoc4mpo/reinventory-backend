@@ -1,42 +1,65 @@
 // INTERNAL IMPORTS
-const Item = require("../models/Location");
+const Item = require("../models/Item");
+const Location = require("../models/Location");
 
-// CREATING LOCATIONS
+// CREATING ITEM
 exports.createItem = async (req, res) => {
-  const { name, description, quantity, locations } = req.body;
+  const { name, description, image, quantity, locations } = req.body;
 
   try {
-    const createdItem = await Item.create({ name, description, quantity, locations });
+    const newItem = await Item.create({ name, description, image, quantity, locations });
+
+    const updateLocation = await Location.findByIdAndUpdate(locations, {
+      $push: { items: newItem._id },
+    });
 
     res.json({
       msg: "Item creation successful",
-      data: createdItem,
+      data: newItem,
     });
   } catch (error) {
     console.log(error);
   }
 };
 
-// OBTAINING ALL LOCATIONS
+// OBTAINING ALL ITEMS
 exports.allItems = async (req, res) => {
+
   try {
-    const allLocations = await Item.find({});
+    const allItems = await Item.find({});
 
     res.json({
-      msg: "Locations query successfully",
-      data: allLocations,
+      msg: "Item query successfully",
+      data: allItems,
     });
   } catch (error) {
     console.log(error);
   }
 };
 
-// UPDATE LOCATION DETAILS
-exports.updateItems = async (req, res) => {
+// OBTAINING A SINGLE ITEM
+exports.selectedItem = async (req, res) => {
+
+  const {id} = req.params
+  
+    try {
+      const selectedLocation = await Item.findById(id);
+  
+      res.json({
+        msg: "Location query successfully",
+        data: selectedLocation,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+// UPDATE ITEM DETAILS
+exports.updateItem = async (req, res) => {
   const { id, name, description, admin, items } = req.body;
 
   try {
-    const updatedLocation = await Item.findByIdAndUpdate(id, {
+    const updatedItems = await Item.findByIdAndUpdate(id, {
       name,
       description,
       admin,
@@ -46,24 +69,25 @@ exports.updateItems = async (req, res) => {
     );
 
     res.json({
-      msg: "Location update successful",
-      data: updatedLocation,
+      msg: "Item update successful",
+      data: updatedItems,
     });
   } catch (error) {
     console.log(error);
   }
 };
 
-// DELETE LOCATION
-exports.deleteItems = async (req, res) => {
+// DELETE ITEM
+exports.deleteItem = async (req, res) => {
+
   const { id } = req.body;
 
   try {
-    const deletedLocation = await Item.findByIdAndDelete(id);
+    const deletedItem = await Item.findByIdAndDelete(id);
 
     res.json({
-      msg: "Location deletion successful",
-      data: deletedLocation,
+      msg: "Item deletion successful",
+      data: deletedItem,
     });
   } catch (error) {
     console.log(error);
