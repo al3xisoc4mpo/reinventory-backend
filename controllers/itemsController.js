@@ -107,6 +107,23 @@ exports.deleteItem = async (req, res) => {
   try {
     const deletedItem = await Item.findByIdAndDelete(id);
 
+    deletedItem.locations.forEach(async(location) => {
+      console.log(location)
+      const deletedLocationRelation = await Location.findByIdAndUpdate(
+        location,
+        {
+          $pull: { items: deletedItem._id },
+        }
+      );
+    });
+
+    const deletedUserRelation = await User.findByIdAndUpdate(
+      deletedItem.user,
+      {
+        $pull: { items: deletedItem._id },
+      }
+    );
+
     res.json({
       msg: "Item deletion successful",
       data: deletedItem,
