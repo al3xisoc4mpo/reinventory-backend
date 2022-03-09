@@ -45,6 +45,12 @@ const userSchema = new Schema({
       ref: "Location",
     },
   ],
+  items: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Item",
+    },
+  ],
 });
 
 const User = model("User", userSchema);

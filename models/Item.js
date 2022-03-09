@@ -26,6 +26,10 @@ const itemSchema = new Schema(
       default: 0,
       min: 1,
     },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
     locations: [
       {
         type: Schema.Types.ObjectId,

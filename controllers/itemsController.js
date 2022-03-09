@@ -1,10 +1,12 @@
 // INTERNAL IMPORTS
 const Item = require("../models/Item");
 const Location = require("../models/Location");
+const User = require("../models/User");
 
 // CREATING ITEM
 exports.createItem = async (req, res) => {
-  const { name, description, image, quantity, locations } = req.body;
+  const { user, name, description, image, quantity, locations } = req.body;
+  console.log(user)
 
   try {
     const newItem = await Item.create({
@@ -13,9 +15,14 @@ exports.createItem = async (req, res) => {
       image,
       quantity,
       locations,
+      user
     });
 
     const updateLocation = await Location.findByIdAndUpdate(locations, {
+      $push: { items: newItem._id },
+    });
+
+    const updateUser = await User.findByIdAndUpdate(user, {
       $push: { items: newItem._id },
     });
 
@@ -33,7 +40,7 @@ exports.allItems = async (req, res) => {
   const {user} = req.body
   console.log(user)
   try {
-    const allItems = await Item.find({})
+    const allItems = await Item.find({user})
     .populate({
       path: "locations",
       model: "Location",

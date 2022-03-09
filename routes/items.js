@@ -12,7 +12,7 @@ const itemsController = require("../controllers/itemsController")
 router.post("/create", itemsController.createItem);
 
 // OBTAIN ALL ITEMS
-router.get("/all", itemsController.allItems);
+router.post("/all", itemsController.allItems);
 
 // OBTAIN AN ITEM
 router.get("/:id", itemsController.selectedItem);
