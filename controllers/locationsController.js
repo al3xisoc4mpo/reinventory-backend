@@ -27,8 +27,10 @@ exports.createlocation = async (req, res) => {
 
 // OBTAINING ALL LOCATIONS
 exports.allLocations = async (req, res) => {
+  const {user} = req.body
+  console.log(user)
   try {
-    const allLocations = await Location.find({});
+    const allLocations = await Location.find({admin:user});
 
     res.json({
       msg: "Locations query successfully",

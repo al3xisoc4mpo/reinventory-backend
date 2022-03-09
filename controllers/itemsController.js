@@ -30,6 +30,8 @@ exports.createItem = async (req, res) => {
 
 // OBTAINING ALL ITEMS
 exports.allItems = async (req, res) => {
+  const {user} = req.body
+  console.log(user)
   try {
     const allItems = await Item.find({})
     .populate({

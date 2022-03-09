@@ -12,7 +12,7 @@ const locationsController = require("../controllers/locationsController")
 router.post("/create", locationsController.createlocation);
 
 // OBTAIN ALL LOCATIONS
-router.get("/all", locationsController.allLocations);
+router.post("/all", locationsController.allLocations);
 
 // OBTAIN A LOCATION
 router.get("/:id", locationsController.selectedLocation);
