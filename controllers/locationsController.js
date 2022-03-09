@@ -1,17 +1,25 @@
+// ./controllers/locationsControllers.js
+
 // INTERNAL IMPORTS
 const Location = require("../models/Location");
+const User = require("../models/User")
 
 // CREATING LOCATIONS
 exports.createlocation = async (req, res) => {
   const { name, description, image, admin } = req.body;
 
   try {
-    const createdLocation = await Location.create({ name, description, image, admin });
+    const newLocation = await Location.create({ name, description, image, admin });
+
+    const updateUser = await User.findByIdAndUpdate(admin, {
+      $push: { locations: newLocation._id },
+    });
 
     res.json({
       msg: "Location creation successful",
-      data: createdLocation,
+      data: newLocation,
     });
+
   } catch (error) {
     console.log(error);
   }
@@ -37,7 +45,11 @@ exports.selectedLocation = async (req, res) => {
 const {id} = req.params
 
   try {
-    const selectedLocation = await Location.findById(id);
+    const selectedLocation = await Location.findById(id)
+    .populate({
+      path:"items",
+      model: "Item"
+    });
 
     res.json({
       msg: "Location query successfully",
@@ -51,12 +63,10 @@ const {id} = req.params
 // UPDATE LOCATION DETAILS
 exports.updateLocation = async (req, res) => {
 
-  const {id} = req.params
-  console.log(id)
-  const { name, description, image } = req.body;
+  const { _id, name, description, image } = req.body;
 
   try {
-    const updatedLocation = await Location.findByIdAndUpdate(id, {
+    const updatedLocation = await Location.findByIdAndUpdate(_id, {
       name,
       description,
       image
@@ -75,10 +85,11 @@ exports.updateLocation = async (req, res) => {
 
 // DELETE LOCATION
 exports.deleteLocation = async (req, res) => {
-  const { id } = req.params;
-  console.log(id)
+
+  const { _id } = req.body;
+
   try {
-    const deletedLocation = await Location.findByIdAndDelete(id);
+    const deletedLocation = await Location.findByIdAndDelete(_id);
 
     res.json({
       msg: "Location deletion successful",

@@ -7,7 +7,13 @@ exports.createItem = async (req, res) => {
   const { name, description, image, quantity, locations } = req.body;
 
   try {
-    const newItem = await Item.create({ name, description, image, quantity, locations });
+    const newItem = await Item.create({
+      name,
+      description,
+      image,
+      quantity,
+      locations,
+    });
 
     const updateLocation = await Location.findByIdAndUpdate(locations, {
       $push: { items: newItem._id },
@@ -24,9 +30,12 @@ exports.createItem = async (req, res) => {
 
 // OBTAINING ALL ITEMS
 exports.allItems = async (req, res) => {
-
   try {
-    const allItems = await Item.find({});
+    const allItems = await Item.find({})
+    .populate({
+      path: "locations",
+      model: "Location",
+    });
 
     res.json({
       msg: "Item query successfully",
@@ -40,37 +49,42 @@ exports.allItems = async (req, res) => {
 // OBTAINING A SINGLE ITEM
 exports.selectedItem = async (req, res) => {
 
-  const {id} = req.params
-  
-    try {
-      const selectedLocation = await Item.findById(id);
-  
-      res.json({
-        msg: "Location query successfully",
-        data: selectedLocation,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { id } = req.params;
+
+  try {
+    const selectedLocation = await Item.findById(id);
+
+    res.json({
+      msg: "Location query successfully",
+      data: selectedLocation,
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // UPDATE ITEM DETAILS
 exports.updateItem = async (req, res) => {
-  const { id, name, description, admin, items } = req.body;
+
+
+  const { _id, name, description, image, quantity } = req.body;
 
   try {
-    const updatedItems = await Item.findByIdAndUpdate(id, {
-      name,
-      description,
-      admin,
-      items,
-    },
-    { new: true }
+    const updatedItem = await Item.findByIdAndUpdate(
+      _id,
+      {
+        name,
+        description,
+        image,
+        quantity,
+      },
+      { new: true }
     );
 
     res.json({
       msg: "Item update successful",
-      data: updatedItems,
+      data: updatedItem,
     });
   } catch (error) {
     console.log(error);
@@ -79,7 +93,6 @@ exports.updateItem = async (req, res) => {
 
 // DELETE ITEM
 exports.deleteItem = async (req, res) => {
-
   const { id } = req.body;
 
   try {
