@@ -1,9 +1,10 @@
-# Furbnb :dog:
-## Airbnb for dogs, but with dog bragging powers 
-### *Fullstack web app (server-side rendering)*
-**Technologies used:** Javascript, NodeJS, ExpressJS, MongoDB, MongooseJS, HandlebarsJS, HTML, CSS.
 
-I love dogs :heart:. I thought it would be fun to put into practice server-side rendering skills with an app that would help dog lovers like myself find or host cool daycare locations. You can also showcase your dog to the world.
+# Reinventory :construction_worker:
+## Physical inventory for the casual user or small business owner 
+### *Backend Repo*
+**Technologies used:** NodeJS, ExpressJS, MongoDB, MongooseJS.
+
+The idea behind the app came from the realization that some physical inventories were still done with pen and paper as of today. This app enables them to setup locations and assign items in stock.
 
 ## Credits
 
